@@ -1,0 +1,39 @@
+{
+  "name": "african-countries-api",
+  "version": "1.0.0",
+  "description": "A Node.js library that provides APIs to get useful data about African countries",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/*"
+  },
+  "author": "Babajide Mayowa Moibi <babajidemm@gmail.com> (info@moibi.de)",
+  "license": "MIT",
+  "keywords": [
+    "african",
+    "countries",
+    "api",
+    "african-countries-api",
+    "african-countries",
+    "AfricanCountriesAPI",
+    "json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/babajidemm/african-countries-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/babajidemm/african-countries-api/issues"
+  },
+  "homepage": "https://github.com/babajidemm/african-countries-api#readme",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "http-response-object": "^3.0.2",
+    "mocha": "^8.0.1",
+    "underscore": "^1.10.2"
+  },
+  "devDependencies": {
+    "should": "^13.2.3"
+  }
+}

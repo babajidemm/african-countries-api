@@ -1,0 +1,1 @@
+global.API_VERSION = 'v1'
