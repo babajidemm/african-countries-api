@@ -6,9 +6,9 @@
 
 A Node.js library that provides APIs to get useful data about African countries including their cities (with more than 500 inhabitants).
 
-Cities data - copyright [geonames.org](http://www.geonames.org/)
-Countries data - copyright [https://restcountries.eu/rest/v2/all](https://restcountries.eu/rest/v2/all)
-(**Last uüpdate**: **July 2020**)
+- Cities data - copyright [geonames.org](http://www.geonames.org/)
+- Countries data - copyright [https://restcountries.eu/rest/v2/all](https://restcountries.eu/rest/v2/all)
+(**Last update**: **July 2020**)
 
 ## Installation
 
@@ -148,78 +148,78 @@ console.log(countriesByName.body.toString());
  * @api {get} all Request for all African countries
  */
 all(),
-  /**
-   * @api {get} byName Request country by unique name
-   */
-  byName(name),
-  /**
-   * @api {get} byCountryCode Request country by unique (CCA2) code
-   */
-  byCountryCode(code),
-  /**
-   * @api {get} byISOAlpha3CountryCode Request country by unique ISO3166-1 numeric (CCA3) code
-   */
-  byISOAlpha3CountryCode(code),
-  /**
-   * @api {get} byISONumericCountryCode Request country by unique name
-   */
-  byISONumericCountryCode(code),
-  /**
-   * @api {get} byOlympicCommiteeCode Request country by the unique International Olympic Committee (IOC) code
-   */
-  byOlympicCommiteeCode(cioc),
-  /**
-   * @api {get} byCurrency Request country by currency name
-   */
-  byCurrency(currency),
-  /**
-   * @api {get} byBorder Request country by one of its borders
-   */
-  byBorder(border),
-  /**
-   * @api {get} byLanguage Request country by a language spoken in her
-   */
-  byLanguage(language),
-  /**
-   * @api {get} byLatitude Request country by her latitutde
-   */
-  byLatitude(lat),
-  /**
-   * @api {get} byLongitude Request country by longitude
-   */
-  byLongitude(lng),
-  /**
-   * @api {get} byCoordinates Request country by coordinates (Number[2])
-   */
-  byCoordinates(coordinates),
-  /**
-   * @api {get} byCapital Request country by capital name
-   */
-  byCapital(capital),
-  /**
-   * @api {get} byPhoneCode Request country by phoneCode
-   */
-  byPhoneCode(phoneCode),
-  /**
-   * @api {get} byRegion Request country by region name
-   */
-  byRegion(region),
-  /**
-   * @api {get} bySubregion Request country by subregion name
-   */
-  bySubregion(subregion),
-  /**
-   * @api {get} byDemonym Request country by demonym
-   */
-  byDemonym(demonym),
-  /**
-   * @api {get} byAlternativeName Request country by alternative names e.g "DZ","Dzayer","Algérie" for Algeria
-   */
-  byAlternativeName(altName),
-  /**
-   * @api {get} byTopLevelDomain Request country by top level domain code
-   */
-  byTopLevelDomain(tld);
+/**
+ * @api {get} byName Request country by unique name
+ */
+byName(name),
+/**
+ * @api {get} byCountryCode Request country by unique (CCA2) code
+ */
+byCountryCode(code),
+/**
+ * @api {get} byISOAlpha3CountryCode Request country by unique ISO3166-1 numeric (CCA3) code
+ */
+byISOAlpha3CountryCode(code),
+/**
+ * @api {get} byISONumericCountryCode Request country by unique name
+ */
+byISONumericCountryCode(code),
+/**
+ * @api {get} byOlympicCommiteeCode Request country by the unique International Olympic Committee (IOC) code
+ */
+byOlympicCommiteeCode(cioc),
+/**
+ * @api {get} byCurrency Request country by currency name
+ */
+byCurrency(currency),
+/**
+ * @api {get} byBorder Request country by one of its borders
+ */
+byBorder(border),
+/**
+ * @api {get} byLanguage Request country by a language spoken in her
+ */
+byLanguage(language),
+/**
+ * @api {get} byLatitude Request country by her latitutde
+ */
+byLatitude(lat),
+/**
+ * @api {get} byLongitude Request country by longitude
+ */
+byLongitude(lng),
+/**
+ * @api {get} byCoordinates Request country by coordinates (Number[2])
+ */
+byCoordinates(coordinates),
+/**
+ * @api {get} byCapital Request country by capital name
+ */
+byCapital(capital),
+/**
+ * @api {get} byPhoneCode Request country by phoneCode
+ */
+byPhoneCode(phoneCode),
+/**
+ * @api {get} byRegion Request country by region name
+ */
+byRegion(region),
+/**
+ * @api {get} bySubregion Request country by subregion name
+ */
+bySubregion(subregion),
+/**
+ * @api {get} byDemonym Request country by demonym
+ */
+byDemonym(demonym),
+/**
+ * @api {get} byAlternativeName Request country by alternative names e.g "DZ","Dzayer","Algérie" for Algeria
+ */
+byAlternativeName(altName),
+/**
+ * @api {get} byTopLevelDomain Request country by top level domain code
+ */
+byTopLevelDomain(tld);
 ```
 
 ## Tests
