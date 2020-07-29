@@ -147,7 +147,7 @@ module.exports = {
      */
     byLongitude: (lng) => CountriesService.byLongitude(lng),
     /**
-     * @api {get} byCoordinates Request country by coordinates
+     * @api {get} byCoordinates Request country by coordinates (Number[2])
      * @apiName byCoordinates
      *
      * @apiParam coordinates {Number[]} Mandatory coordinates as array of numbers (format: [lat, lng] e.g [28, 3] for Algeria)
