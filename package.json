@@ -1,5 +1,5 @@
 {
-  "name": "african-countries-api",
+  "name": "@babajidemm/african-countries-api",
   "version": "1.0.1",
   "description": "A Node.js library that provides APIs to get useful data about African countries",
   "main": "index.js",
