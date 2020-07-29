@@ -1,6 +1,6 @@
 {
   "name": "@babajidemm/african-countries-api",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Node.js library that provides APIs to get useful data about African countries",
   "main": "index.js",
   "scripts": {
