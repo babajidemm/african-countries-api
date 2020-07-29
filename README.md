@@ -22,8 +22,8 @@ npm install african-countries-api --save
 
 ```js
 const africanCountriesAPI = require('african-countries-api');
-
-var countriesByName = africanCountriesAPI.byName('Algeria'));
+// get a country by its name
+const countriesByName = africanCountriesAPI.byName('Algeria');
 ```
 
 It uses (http-response-object)[https://www.npmjs.com/package/http-response-object] as response object.
