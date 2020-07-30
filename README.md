@@ -8,6 +8,7 @@ A Node.js library that provides APIs to get useful data about African countries 
 
 - Cities data - copyright [geonames.org](http://www.geonames.org/)
 - Countries data - copyright [https://restcountries.eu/rest/v2/all](https://restcountries.eu/rest/v2/all)
+
 (**Last update**: **July 2020**)
 
 ## Installation
@@ -15,7 +16,7 @@ A Node.js library that provides APIs to get useful data about African countries 
 Download and install node at [nodejs.org](http://nodejs.org).
 
 ```sh
-npm install @babajidemm/african-countries-api --save
+npm install @babajidemm/african-countries-api --registry=https://npm.pkg.github.com/babajidemm --save
 ```
 
 ## Usage

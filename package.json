@@ -1,7 +1,7 @@
 {
   "name": "@babajidemm/african-countries-api",
   "version": "1.0.2",
-  "description": "A Node.js library that provides APIs to get useful data about African countries",
+  "description": "A Node.js library that provides APIs to get useful data about African countries including their cities (with more than 500 inhabitants).",
   "main": "index.js",
   "scripts": {
     "test": "mocha test/*"
@@ -27,9 +27,6 @@
   "homepage": "https://github.com/babajidemm/african-countries-api#readme",
   "directories": {
     "test": "test"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
   },
   "dependencies": {
     "http-response-object": "^3.0.2",
