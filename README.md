@@ -27,7 +27,7 @@ const africanCountriesAPI = require('@babajidemm/african-countries-api');
 const countriesByName = africanCountriesAPI.byName('Algeria');
 ```
 
-It uses (http-response-object)[https://www.npmjs.com/package/http-response-object] as response object.
+It uses [http-response-object](https://www.npmjs.com/package/http-response-object) as response object.
 
 ```js
 console.log(countriesByName);
