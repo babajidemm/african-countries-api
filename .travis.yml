@@ -3,8 +3,10 @@ node_js:
   - 12
 before_install:
   - rm -f .npmrc
-  - echo "registry=https://npm.pkg.github.com/babajidemm" >.npmrc
-  - echo "@babajidemm:registry=https://npm.pkg.github.com/:_authToken=\${GITHUB_TOKEN}" > .npmrc
+  - npm config set registry https://npm.pkg.github.com/babajidemm
+  - npm config set '//registry.npmjs.org/:_authToken' "${GITHUB_TOKEN}"
+  #- echo "registry=https://npm.pkg.github.com/babajidemm" >.npmrc
+  #- echo "@babajidemm:registry=https://npm.pkg.github.com/:_authToken=\${GITHUB_TOKEN}" > .npmrc
 script:
   - npm test
 after_success: npm run coverage
