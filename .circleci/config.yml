@@ -7,10 +7,14 @@ jobs:
       name: node/default
     steps:
       - checkout
+      - run: npm config set registry https://npm.pkg.github.com/babajidemm
+      - run: rm -f web_ui/frontend/.npmrc
+      - run: echo "registry=https://npm.pkg.github.com/babajidemm" > web_ui/frontend/.npmrc
+      - run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" > web_ui/frontend/.npmrc
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
       - node/with-cache:
           steps:
             - run: npm install
@@ -22,11 +26,4 @@ jobs:
 workflows:
   build-and-test:
     jobs:
-      - build-and-test:
-          pre-steps:
-            - run:
-              command: npm config set registry https://npm.pkg.github.com/babajidemm
-            - run:
-              command: echo "registry=https://npm.pkg.github.com/babajidemm" > web_ui/frontend/.npmrc
-            - run:
-              command: echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" > web_ui/frontend/.npmrc
+      - build-and-test
