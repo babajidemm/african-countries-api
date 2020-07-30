@@ -15,13 +15,13 @@ A Node.js library that provides APIs to get useful data about African countries 
 Download and install node at [nodejs.org](http://nodejs.org).
 
 ```sh
-npm install african-countries-api --save
+npm install @babajidemm/african-countries-api --save
 ```
 
 ## Usage
 
 ```js
-const africanCountriesAPI = require('african-countries-api');
+const africanCountriesAPI = require('@babajidemm/african-countries-api');
 // get a country by its name
 const countriesByName = africanCountriesAPI.byName('Algeria');
 ```
