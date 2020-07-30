@@ -2,9 +2,9 @@ language: node_js
 node_js:
   - 12
 before_install:
-  #- rm -f ./.npmrc
-  #- echo "registry=https://npm.pkg.github.com/babajidemm" >.npmrc
-  #- echo "@babajidemm:registry=https://npm.pkg.github.com/:_authToken=\${GITHUB_TOKEN}" > .npmrc
+  - rm -f .npmrc
+  - echo "registry=https://npm.pkg.github.com/babajidemm" >.npmrc
+  - echo "@babajidemm:registry=https://npm.pkg.github.com/:_authToken=\${GITHUB_TOKEN}" > .npmrc
 script:
   - npm test
 after_success: npm run coverage
