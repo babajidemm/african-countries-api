@@ -8,9 +8,9 @@ jobs:
     steps:
       - checkout
       - run: npm config set registry https://npm.pkg.github.com/babajidemm
-      - run: rm -f web_ui/frontend/.npmrc
-      - run: echo "registry=https://npm.pkg.github.com/babajidemm" > web_ui/frontend/.npmrc
-      - run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" > web_ui/frontend/.npmrc
+      - run: rm -f .npmrc
+      - run: echo "registry=https://npm.pkg.github.com/babajidemm" > .npmrc
+      - run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" > .npmrc
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
