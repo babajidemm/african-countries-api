@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/babajidemm/african-countries-api.svg?branch=master)](https://travis-ci.org/babajidemm/african-countries-api)
 [![buddy pipeline](https://app.buddy.works/babajidemm/african-countries-api/pipelines/pipeline/270922/badge.svg?token=ac2d21420dfe482fff0be7c7521dfb95af44caaefa4731e04a7d097fc559dac5 "buddy pipeline")](https://app.buddy.works/babajidemm/african-countries-api/pipelines/pipeline/270922)
 [![babajidemm](https://circleci.com/gh/babajidemm/african-countries-api.svg?style=svg)](https://app.circleci.com/pipelines/github/babajidemm/african-countries-api)
+[![Coverage Status](https://coveralls.io/repos/github/babajidemm/african-countries-api/badge.svg?branch=master)](https://coveralls.io/github/babajidemm/african-countries-api?branch=master)
 
 A Node.js library that provides APIs to get useful data about African countries including their cities (with more than 500 inhabitants).
 
