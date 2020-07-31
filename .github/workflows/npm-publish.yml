@@ -31,16 +31,22 @@ jobs:
           registry-url: https://registry.npmjs.org/
           scope: "@babajidemm"
       - run: npm config set registry https://npm.pkg.github.com/babajidemm
-      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > ~/.npmrc
       - run: echo "@babajidemm:registry=https://npm.pkg.github.com" > .npmrc
+      - run: echo "registry=https://registry.npmjs.org/" > .npmrc
+      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > ~/.npmrc
+      - run: echo "@babajidemm:registry=https://npm.pkg.github.com" > /home/runner/work/_temp/.npmrc
+      - run: echo "registry=https://registry.npmjs.org/" > /home/runner/work/_temp/.npmrc
+      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > /home/runner/work/_temp/.npmrc
       - run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
           GITHUB_TOKEN: ${{secrets.MY_GITHUB_TOKEN}}
+          MY_GITHUB_TOKEN: ${{secrets.MY_GITHUB_TOKEN}}
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
           GITHUB_TOKEN: ${{secrets.MY_GITHUB_TOKEN}}
+          MY_GITHUB_TOKEN: ${{secrets.MY_GITHUB_TOKEN}}
 
   publish-gpr:
     needs: build
@@ -53,13 +59,19 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           scope: "@babajidemm"
       - run: npm config set registry https://npm.pkg.github.com/babajidemm
-      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > ~/.npmrc
       - run: echo "@babajidemm:registry=https://npm.pkg.github.com" > .npmrc
+      - run: echo "registry=https://registry.npmjs.org/" > .npmrc
+      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > ~/.npmrc
+      - run: echo "@babajidemm:registry=https://npm.pkg.github.com" > /home/runner/work/_temp/.npmrc
+      - run: echo "registry=https://registry.npmjs.org/" > /home/runner/work/_temp/.npmrc
+      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > /home/runner/work/_temp/.npmrc
       - run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{secrets.MY_GITHUB_TOKEN}}
           GITHUB_TOKEN: ${{secrets.MY_GITHUB_TOKEN}}
+          MY_GITHUB_TOKEN: ${{secrets.MY_GITHUB_TOKEN}}
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.MY_GITHUB_TOKEN}}
           GITHUB_TOKEN: ${{secrets.MY_GITHUB_TOKEN}}
+          MY_GITHUB_TOKEN: ${{secrets.MY_GITHUB_TOKEN}}
