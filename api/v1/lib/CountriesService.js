@@ -40,8 +40,7 @@ const success = (data) => {
 }
 
 const response = (data) => {
-    if (data === null) return badRequest();
-    else if (data.length <= 0) return emptyResult();
+    if (data.length <= 0) return emptyResult();
     return success(data);
 }
 
