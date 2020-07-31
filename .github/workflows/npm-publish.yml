@@ -29,14 +29,15 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      - name: Authenticate with GitHub package registry
-        run: npm config set registry https://npm.pkg.github.com/babajidemm && echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > ~/.npmrc && echo "@babajidemm:registry=https://npm.pkg.github.com" > .npmrc
+      - run: npm config set registry https://npm.pkg.github.com/babajidemm
+      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > ~/.npmrc
+      - run: echo "@babajidemm:registry=https://npm.pkg.github.com" > .npmrc
       - run: npm ci
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
   publish-gpr:
     needs: build
@@ -48,8 +49,9 @@ jobs:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
           scope: "@babajidemm"
-      - name: Authenticate with GitHub package registry
-        run: npm config set registry https://npm.pkg.github.com/babajidemm && echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > ~/.npmrc && echo "@babajidemm:registry=https://npm.pkg.github.com" > .npmrc
+      - run: npm config set registry https://npm.pkg.github.com/babajidemm
+      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > ~/.npmrc
+      - run: echo "@babajidemm:registry=https://npm.pkg.github.com" > .npmrc
       - run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{secrets.MY_GITHUB_TOKEN}}
