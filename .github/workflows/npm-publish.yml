@@ -32,6 +32,8 @@ jobs:
       - name: Authenticate with GitHub package registry
         run: npm config set registry https://npm.pkg.github.com/babajidemm && echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > ~/.npmrc && echo "@babajidemm:registry=https://npm.pkg.github.com" > .npmrc
       - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
@@ -45,9 +47,12 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
+          scope: "@babajidemm"
       - name: Authenticate with GitHub package registry
         run: npm config set registry https://npm.pkg.github.com/babajidemm && echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > ~/.npmrc && echo "@babajidemm:registry=https://npm.pkg.github.com" > .npmrc
       - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.MY_GITHUB_TOKEN}}
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.MY_GITHUB_TOKEN}}
