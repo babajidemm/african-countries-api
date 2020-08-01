@@ -29,7 +29,6 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-          scope: "@babajidemm"
       - run: npm config set registry https://npm.pkg.github.com/babajidemm
       - run: echo "@babajidemm:registry=https://npm.pkg.github.com" > .npmrc
       - run: echo "registry=https://registry.npmjs.org/" > .npmrc
@@ -57,7 +56,6 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
-          scope: "@babajidemm"
       - run: npm config set registry https://npm.pkg.github.com/babajidemm
       - run: echo "@babajidemm:registry=https://npm.pkg.github.com" > .npmrc
       - run: echo "registry=https://registry.npmjs.org/" > .npmrc
