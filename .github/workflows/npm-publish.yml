@@ -30,10 +30,10 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: npm config set registry http://registry.npmjs.org
-      - run: echo "@babajidemm:registry=https://npm.pkg.github.com" > .npmrc
+      - run: echo "@babajidemm:registry=https://registry.npmjs.org/" > .npmrc
       - run: echo "registry=https://registry.npmjs.org/" > .npmrc
       - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > ~/.npmrc
-      - run: echo "@babajidemm:registry=https://npm.pkg.github.com" > /home/runner/work/_temp/.npmrc
+      - run: echo "@babajidemm:registry=https://registry.npmjs.org/" > /home/runner/work/_temp/.npmrc
       - run: echo "registry=https://registry.npmjs.org/" > /home/runner/work/_temp/.npmrc
       - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > /home/runner/work/_temp/.npmrc
       - run: npm ci
@@ -58,10 +58,10 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           scope: '@babajidemm'
       - run: npm config set registry http://registry.npmjs.org
-      - run: echo "@babajidemm:registry=https://npm.pkg.github.com" > .npmrc
+      - run: echo "@babajidemm:registry=https://registry.npmjs.org/" > .npmrc
       - run: echo "registry=https://registry.npmjs.org/" > .npmrc
       - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > ~/.npmrc
-      - run: echo "@babajidemm:registry=https://npm.pkg.github.com" > /home/runner/work/_temp/.npmrc
+      - run: echo "@babajidemm:registry=https://registry.npmjs.org/" > /home/runner/work/_temp/.npmrc
       - run: echo "registry=https://registry.npmjs.org/" > /home/runner/work/_temp/.npmrc
       - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.MY_GITHUB_TOKEN }}" > /home/runner/work/_temp/.npmrc
       - run: npm ci
