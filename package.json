@@ -1,6 +1,6 @@
 {
   "name": "@babajidemm/african-countries-api",
-  "version": "1.0.4",
+  "version": "1.0.04",
   "description": "A Node.js library that provides APIs to get useful data about African countries including their cities (with more than 500 inhabitants).",
   "main": "index.js",
   "scripts": {
