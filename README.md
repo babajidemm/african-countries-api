@@ -17,7 +17,7 @@ A Node.js library that provides APIs to get useful data about African countries 
 Download and install node at [nodejs.org](http://nodejs.org).
 
 ```sh
-npm install @babajidemm/african-countries-api --registry=https://npm.pkg.github.com/babajidemm --save
+npm i @babajidemm/african-countries-api --save
 ```
 
 ## Usage
