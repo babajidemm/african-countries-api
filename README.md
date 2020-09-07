@@ -231,7 +231,7 @@ npm test
 ```
 
 ## Deno module
-This module is not available on Deno: https://deno.land/x/africancountriesapi@1.1.4 
+This module is now available on Deno: https://deno.land/x/africancountriesapi@1.1.4 
 
 ## Contributions
 
