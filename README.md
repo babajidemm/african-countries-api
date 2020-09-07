@@ -5,9 +5,6 @@
 [![babajidemm](https://circleci.com/gh/babajidemm/african-countries-api.svg?style=svg)](https://app.circleci.com/pipelines/github/babajidemm/african-countries-api)
 [![Coverage Status](https://coveralls.io/repos/github/babajidemm/african-countries-api/badge.svg?branch=master)](https://coveralls.io/github/babajidemm/african-countries-api?branch=master)
 
-### Deno module
-This module is not available on Deno: https://deno.land/x/africancountriesapi@1.1.4 
-
 A Node.js library that provides APIs to get useful data about African countries including their cities (with more than 500 inhabitants).
 
 - Cities data - copyright [geonames.org](http://www.geonames.org/)
@@ -232,6 +229,9 @@ byTopLevelDomain(tld);
 npm install
 npm test
 ```
+
+## Deno module
+This module is not available on Deno: https://deno.land/x/africancountriesapi@1.1.4 
 
 ## Contributions
 
