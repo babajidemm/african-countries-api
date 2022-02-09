@@ -17,7 +17,8 @@ jobs:
             - v1-dependencies-
       - node/with-cache:
           steps:
-            - run: npm install
+            - run: npm update
+            - run: npm install --no-package-lock
             - run: npm test
       - save_cache:
           paths:
