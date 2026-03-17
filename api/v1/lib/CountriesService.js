@@ -1,7 +1,6 @@
 "use strict";
 
 const Response = require('http-response-object');
-const _ = require('underscore')
 
 const africanCountries = require('../data/african_countries.json')
 
@@ -44,55 +43,111 @@ const response = (data) => {
     return success(data);
 }
 
-const jsonObjectReducer = (obj, attribute) => obj[attribute];
-
-const singleResult = (list, attribute, value) => {
-    let result = _.filter(list, (c) => {
-        const nestedValue = attribute.split('.').reduce(jsonObjectReducer, c);
-        if (_.isEqual(nestedValue, value)) {
-            return c;
-        }
-    })
-    return result;
-}
-
-const singleResultFromArray = (list, attribute, value) => _.filter(list, (c) => {
-    if (_.contains(c[attribute], value)) {
-        return c
+const addToMapList = (map, key, value) => {
+    if (key === undefined || key === null) return;
+    if (!map.has(key)) {
+        map.set(key, []);
     }
-})
+    map.get(key).push(value);
+};
 
-const singleResultFromArrayByValue = (list, attribute, value) => _.filter(list, (c) => {
-    return _(c[attribute]).values().some((v) => {
-        return v === value;
+const createExactIndex = (countries, getter) => {
+    const index = new Map();
+    countries.forEach((country) => addToMapList(index, getter(country), country));
+    return index;
+};
+
+const createArrayIndex = (countries, getter) => {
+    const index = new Map();
+    countries.forEach((country) => {
+        const values = getter(country);
+        if (!Array.isArray(values)) return;
+        values.forEach((value) => addToMapList(index, value, country));
     });
-});
+    return index;
+};
 
-const singleResultAtIndex = (list, prop, value, index) => _.filter(list, (c) => {
-    if (c[prop] && _.isEqual(c[prop][index], value)) {
-        return c;
-    }
-});
+const createLanguageIndex = (countries) => {
+    const index = new Map();
+    countries.forEach((country) => {
+        Object.values(country.languages || {}).forEach((language) => {
+            addToMapList(index, language, country);
+        });
+    });
+    return index;
+};
+
+const createCoordinateIndexes = (countries) => {
+    const latIndex = new Map();
+    const lngIndex = new Map();
+    const pairIndex = new Map();
+
+    countries.forEach((country) => {
+        const coordinates = country.latlong;
+        if (!Array.isArray(coordinates) || coordinates.length < 2) return;
+
+        const lat = coordinates[0];
+        const lng = coordinates[1];
+
+        addToMapList(latIndex, lat, country);
+        addToMapList(lngIndex, lng, country);
+        addToMapList(pairIndex, `${lat}|${lng}`, country);
+    });
+
+    return { latIndex, lngIndex, pairIndex };
+};
+
+const findInIndex = (index, key) => index.get(key) || [];
+
+const byCca2Index = createExactIndex(africanCountries, (country) => country.cca2);
+const byCca3Index = createExactIndex(africanCountries, (country) => country.cca3);
+const byCcn3Index = createExactIndex(africanCountries, (country) => country.ccn3);
+const byCiocIndex = createExactIndex(africanCountries, (country) => country.cioc);
+const byCapitalIndex = createExactIndex(africanCountries, (country) => country.capital);
+const byRegionIndex = createExactIndex(africanCountries, (country) => country.region);
+const bySubregionIndex = createExactIndex(africanCountries, (country) => country.subregion);
+const byDemonymIndex = createExactIndex(africanCountries, (country) => country.demonym);
+const byNameCommonIndex = createExactIndex(africanCountries, (country) => country.name && country.name.common);
+const byNameOfficialIndex = createExactIndex(africanCountries, (country) => country.name && country.name.official);
+
+const byCurrencyIndex = createArrayIndex(africanCountries, (country) => country.currencies);
+const byBorderIndex = createArrayIndex(africanCountries, (country) => country.borders);
+const byAlternativeNameIndex = createArrayIndex(africanCountries, (country) => country.altSpellings);
+const byTopLevelDomainIndex = createArrayIndex(africanCountries, (country) => country.topLevelDomain);
+const byPhoneCodeIndex = createArrayIndex(africanCountries, (country) => country.callingCode);
+const byLanguageIndex = createLanguageIndex(africanCountries);
+const { latIndex, lngIndex, pairIndex } = createCoordinateIndexes(africanCountries);
 
 
 module.exports = {
     all: () => response(africanCountries),
-    byName: (name) => response(singleResult(africanCountries, 'name.common', name).concat(singleResult(africanCountries, 'name.official', name))),
-    byCCA2: (cca2) => response(singleResult(africanCountries, 'cca2', cca2)),
-    byCCA3: (cca3) => response(singleResult(africanCountries, 'cca3', cca3)),
-    byCCN3: (ccn3) => response(singleResult(africanCountries, 'ccn3', ccn3)),
-    byCIOC: (cioc) => response(singleResult(africanCountries, 'cioc', cioc)),
-    byCurrency: (currency) => response(singleResultFromArray(africanCountries, 'currencies', currency)),
-    byBorder: (border) => response(singleResultFromArray(africanCountries, 'borders', border)),
-    byLanguage: (language) => response(singleResultFromArrayByValue(africanCountries, 'languages', language)),
-    byLatitude: (lat) => response(singleResultAtIndex(africanCountries, 'latlong', parseFloat(lat), 0)),
-    byLongitude: (lng) => response(singleResultAtIndex(africanCountries, 'latlong', parseFloat(lng), 1)),
-    byCoordinates: (coordinates) => (!Array.isArray(coordinates)) ? badRequest() : response(singleResult(africanCountries, 'latlong', coordinates)),
-    byCapital: (capital) => response(singleResult(africanCountries, 'capital', capital)),
-    byPhoneCode: (phoneCode) => (isNaN(parseInt(phoneCode.replace(/\+/gi, '')))) ? badRequest() : response(singleResultFromArray(africanCountries, 'callingCode', (parseInt(phoneCode.replace(/\+/gi, ''))).toString())),
-    byRegion: (region) => response(singleResult(africanCountries, 'region', region)),
-    bySubregion: (subregion) => response(singleResult(africanCountries, 'subregion', subregion)),
-    byDemonym: (demonym) => response(singleResult(africanCountries, 'demonym', demonym)),
-    byAlternativeName: (altName) => response(singleResultFromArray(africanCountries, 'altSpellings', altName)),
-    byTopLevelDomain: (tld) => (!tld.startsWith('.')) ? response(singleResultFromArray(africanCountries, 'topLevelDomain', '.'.concat(tld))) : response(singleResultFromArray(africanCountries, 'topLevelDomain', tld)),
+    byName: (name) => response(findInIndex(byNameCommonIndex, name).concat(findInIndex(byNameOfficialIndex, name))),
+    byCCA2: (cca2) => response(findInIndex(byCca2Index, cca2)),
+    byCCA3: (cca3) => response(findInIndex(byCca3Index, cca3)),
+    byCCN3: (ccn3) => response(findInIndex(byCcn3Index, ccn3)),
+    byCIOC: (cioc) => response(findInIndex(byCiocIndex, cioc)),
+    byCurrency: (currency) => response(findInIndex(byCurrencyIndex, currency)),
+    byBorder: (border) => response(findInIndex(byBorderIndex, border)),
+    byLanguage: (language) => response(findInIndex(byLanguageIndex, language)),
+    byLatitude: (lat) => response(findInIndex(latIndex, parseFloat(lat))),
+    byLongitude: (lng) => response(findInIndex(lngIndex, parseFloat(lng))),
+    byCoordinates: (coordinates) => (!Array.isArray(coordinates)) ? badRequest() : response(findInIndex(pairIndex, `${coordinates[0]}|${coordinates[1]}`)),
+    byCapital: (capital) => response(findInIndex(byCapitalIndex, capital)),
+    byPhoneCode: (phoneCode) => {
+        const normalizedPhoneCode = String(phoneCode).replace(/\+/gi, '');
+        if (isNaN(parseInt(normalizedPhoneCode, 10))) {
+            return badRequest();
+        }
+
+        const parsedPhoneCode = parseInt(normalizedPhoneCode, 10).toString();
+        return response(findInIndex(byPhoneCodeIndex, parsedPhoneCode));
+    },
+    byRegion: (region) => response(findInIndex(byRegionIndex, region)),
+    bySubregion: (subregion) => response(findInIndex(bySubregionIndex, subregion)),
+    byDemonym: (demonym) => response(findInIndex(byDemonymIndex, demonym)),
+    byAlternativeName: (altName) => response(findInIndex(byAlternativeNameIndex, altName)),
+    byTopLevelDomain: (tld) => {
+        const topLevelDomain = tld.startsWith('.') ? tld : '.'.concat(tld);
+        return response(findInIndex(byTopLevelDomainIndex, topLevelDomain));
+    },
 }

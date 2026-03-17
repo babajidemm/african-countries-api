@@ -1,6 +1,6 @@
 "use strict";
 
-require("../version");
+const API_VERSION = require("../version");
 
 const CountriesService = require("./" + API_VERSION + "/lib/CountriesService");
 

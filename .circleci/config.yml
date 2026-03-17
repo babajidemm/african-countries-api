@@ -1,28 +1,20 @@
 version: 2.1
-orbs:
-  node: circleci/node@1.1.6
 jobs:
   build-and-test:
-    executor:
-      name: node/default
+    docker:
+      - image: cimg/node:20.19
     steps:
       - checkout
-      - run: npm config set registry https://npm.pkg.github.com/babajidemm
-      - run: rm -f .npmrc
-      - run: echo "registry=https://npm.pkg.github.com/babajidemm" > .npmrc
-      - run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" > .npmrc
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-{{ checksum "package-lock.json" }}
             - v1-dependencies-
-      - node/with-cache:
-          steps:
-            - run: npm install
-            - run: npm test
+      - run: npm ci
+      - run: npm test
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
 workflows:
   build-and-test:
     jobs:
