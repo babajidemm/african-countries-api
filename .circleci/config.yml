@@ -1,21 +1,16 @@
 version: 2.1
-orbs:
-  node: circleci/node@7.1.0
 jobs:
   build-and-test:
-    executor:
-      name: node/default
-      tag: '20.19'
+    docker:
+      - image: cimg/node:20.19
     steps:
       - checkout
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package-lock.json" }}
             - v1-dependencies-
-      - node/with-cache:
-          steps:
-            - run: npm ci
-            - run: npm test
+      - run: npm ci
+      - run: npm test
       - save_cache:
           paths:
             - node_modules
