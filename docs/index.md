@@ -1,37 +1,94 @@
-## Welcome to GitHub Pages
+# African Countries API
 
-You can use the [editor on GitHub](https://github.com/babajidemm/african-countries-api/edit/master/docs/index.md) to maintain and preview the content for your website in Markdown files.
+A lightweight Node.js library for querying African country data (including major city data) from a bundled local dataset.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+[View on GitHub](https://github.com/babajidemm/african-countries-api) · [NPM Package](https://www.npmjs.com/package/@babajidemm/african-countries-api)
 
-### Markdown
+---
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Quick Start
 
-```markdown
-Syntax highlighted code block
+### 1) Install
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```sh
+npm i @babajidemm/african-countries-api
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### 2) Use in Node.js
 
-### Jekyll Themes
+```js
+const api = require('@babajidemm/african-countries-api');
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/babajidemm/african-countries-api/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+const response = api.byName('Algeria');
 
-### Support or Contact
+if (response.statusCode === 200) {
+	const countries = JSON.parse(response.body.toString());
+	console.log(countries[0].cca2); // DZ
+}
+```
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+### 3) Try from terminal
+
+```sh
+node -e "const api=require('@babajidemm/african-countries-api');const r=api.byCapital('Accra');console.log(r.statusCode);console.log(r.body.toString());"
+```
+
+---
+
+## Response Format
+
+Each method returns an `http-response-object` style result:
+
+- `statusCode`
+- `headers`
+- `body` (Buffer)
+- `url`
+
+Typical status codes:
+
+- `200` → found result(s)
+- `404` → no match
+- `400` → invalid input shape (for strict methods like `byCoordinates`)
+
+---
+
+## Available Lookups
+
+- `all()`
+- `byName(name)`
+- `byCountryCode(code)`
+- `byISOAlpha3CountryCode(code)`
+- `byISONumericCountryCode(code)`
+- `byOlympicCommiteeCode(cioc)`
+- `byCurrency(currency)`
+- `byBorder(border)`
+- `byLanguage(language)`
+- `byLatitude(lat)`
+- `byLongitude(lng)`
+- `byCoordinates([lat, lng])`
+- `byCapital(capital)`
+- `byPhoneCode(phoneCode)`
+- `byRegion(region)`
+- `bySubregion(subregion)`
+- `byDemonym(demonym)`
+- `byAlternativeName(altName)`
+- `byTopLevelDomain(tld)`
+
+---
+
+## Notes
+
+- Most string lookups are case-sensitive.
+- `byPhoneCode` accepts values like `'+213'`, `'0213'`, and `213`.
+- `byTopLevelDomain` accepts both `'dz'` and `'.dz'`.
+
+---
+
+## Development
+
+```sh
+npm ci
+npm test
+```
+
+Repository: https://github.com/babajidemm/african-countries-api
