@@ -1,5 +1,5 @@
+const { describe, it } = require('node:test');
 const should = require('should');
-const assert = require('assert');
 
 const AfricanCountries = require('../index.js')
 
@@ -191,6 +191,27 @@ describe('AfricanCountries', () => {
             firstResult.should.have.property('name').have.property('common').eql('Algeria');
             firstResult.should.have.property('name').have.property('official').eql('People\'s Democratic Republic of Algeria');
             firstResult.should.have.property('cca2', 'DZ');
+        });
+
+        it('should be case-sensitive for country code', () => {
+            const result = AfricanCountries.byCountryCode('dz');
+
+            result.should.have.property('statusCode', 404).and.be.a.Number();
+            result.should.have.property('headers', {});
+            result.should.have.property('url', undefined);
+
+            let body = result.body
+            should.exist(body);
+            result.should.be.a.Object();
+            result.should.be.Buffer
+
+            body = body.toString();
+            body.should.be.String
+
+            const bodyJSON = JSON.parse(body);
+            should.exist(bodyJSON);
+            bodyJSON.should.be.Array
+            bodyJSON.should.have.lengthOf(0)
         });
     });
 
@@ -564,6 +585,27 @@ describe('AfricanCountries', () => {
             bodyJSON.should.be.Array
             bodyJSON.length.should.be.above(0)
         });
+
+        it('should not match language code keys', () => {
+            const result = AfricanCountries.byLanguage('ara');
+
+            result.should.have.property('statusCode', 404).and.be.a.Number();
+            result.should.have.property('headers', {});
+            result.should.have.property('url', undefined);
+
+            let body = result.body
+            should.exist(body);
+            result.should.be.a.Object();
+            result.should.be.Buffer
+
+            body = body.toString();
+            body.should.be.String
+
+            const bodyJSON = JSON.parse(body);
+            should.exist(bodyJSON);
+            bodyJSON.should.be.Array
+            bodyJSON.should.have.lengthOf(0)
+        });
     });
 
     describe('#byLatitude(Number)', () => {
@@ -848,6 +890,48 @@ describe('AfricanCountries', () => {
             bodyJSON.should.be.Array
             bodyJSON.length.should.be.above(0)
         });
+
+        it('should return correct country list byCoordinates (string numbers)', () => {
+            const result = AfricanCountries.byCoordinates(['28', '3']);
+
+            result.should.have.property('statusCode', 200).and.be.a.Number();
+            result.should.have.property('headers', {});
+            result.should.have.property('url', undefined);
+
+            let body = result.body
+            should.exist(body);
+            result.should.be.a.Object();
+            result.should.be.Buffer
+
+            body = body.toString();
+            body.should.be.String
+
+            const bodyJSON = JSON.parse(body);
+            should.exist(bodyJSON);
+            bodyJSON.should.be.Array
+            bodyJSON.length.should.be.above(0)
+        });
+
+        it('should return empty array when coordinates array is incomplete', () => {
+            const result = AfricanCountries.byCoordinates([28]);
+
+            result.should.have.property('statusCode', 404).and.be.a.Number();
+            result.should.have.property('headers', {});
+            result.should.have.property('url', undefined);
+
+            let body = result.body
+            should.exist(body);
+            result.should.be.a.Object();
+            result.should.be.Buffer
+
+            body = body.toString();
+            body.should.be.String
+
+            const bodyJSON = JSON.parse(body);
+            should.exist(bodyJSON);
+            bodyJSON.should.be.Array
+            bodyJSON.should.have.lengthOf(0)
+        });
     });
 
     describe('#byCapital(String)', () => {
@@ -1007,6 +1091,69 @@ describe('AfricanCountries', () => {
             firstResult.should.have.property('name').have.property('common').eql('Algeria');
             firstResult.should.have.property('name').have.property('official').eql('People\'s Democratic Republic of Algeria');
             firstResult.should.have.property('cca2', 'DZ');
+
+            result = AfricanCountries.byPhoneCode(213);
+
+            result.should.have.property('statusCode', 200).and.be.a.Number();
+            result.should.have.property('headers', {});
+            result.should.have.property('url', undefined);
+
+            should.exist(result);
+            result.should.be.a.Object();
+            result.should.be.an.instanceOf(Object)
+
+            body = result.body
+            should.exist(body);
+            result.should.be.a.Object();
+            result.should.be.Buffer
+
+            body = body.toString();
+            body.should.be.String
+
+            bodyJSON = JSON.parse(body);
+            should.exist(bodyJSON);
+            bodyJSON.should.be.Array
+            bodyJSON.should.have.lengthOf(1)
+
+            firstResult = bodyJSON[0]
+            should.exist(firstResult);
+            firstResult.should.have.property('name').have.property('common').eql('Algeria');
+            firstResult.should.have.property('name').have.property('official').eql('People\'s Democratic Republic of Algeria');
+            firstResult.should.have.property('cca2', 'DZ');
+        });
+
+        it('should normalize leading zeros and whitespace in phoneCode', () => {
+            let result = AfricanCountries.byPhoneCode('0213');
+
+            result.should.have.property('statusCode', 200).and.be.a.Number();
+
+            let body = result.body
+            should.exist(body);
+            result.should.be.Buffer
+
+            body = body.toString();
+            const bodyJSON = JSON.parse(body);
+            bodyJSON.should.be.Array
+            bodyJSON.should.have.lengthOf(1)
+            bodyJSON[0].should.have.property('cca2', 'DZ');
+
+            result = AfricanCountries.byPhoneCode(' +213 ');
+            result.should.have.property('statusCode', 200).and.be.a.Number();
+
+            body = result.body.toString();
+            const spacedBodyJSON = JSON.parse(body);
+            spacedBodyJSON.should.be.Array
+            spacedBodyJSON.should.have.lengthOf(1)
+            spacedBodyJSON[0].should.have.property('cca2', 'DZ');
+        });
+
+        it('should reject empty phoneCode value', () => {
+            const result = AfricanCountries.byPhoneCode('');
+
+            result.should.have.property('statusCode', 400).and.be.a.Number();
+            result.should.have.property('headers', {});
+            result.should.have.property('url', undefined);
+            result.should.have.property('body', undefined);
         });
     });
 
@@ -1228,6 +1375,28 @@ describe('AfricanCountries', () => {
             bodyJSON.should.be.Array
             bodyJSON.length.should.be.above(0)
         });
+
+        it('should support unicode alternative names', () => {
+            const result = AfricanCountries.byAlternativeName('Algérie');
+
+            result.should.have.property('statusCode', 200).and.be.a.Number();
+            result.should.have.property('headers', {});
+            result.should.have.property('url', undefined);
+
+            let body = result.body
+            should.exist(body);
+            result.should.be.a.Object();
+            result.should.be.Buffer
+
+            body = body.toString();
+            body.should.be.String
+
+            const bodyJSON = JSON.parse(body);
+            should.exist(bodyJSON);
+            bodyJSON.should.be.Array
+            bodyJSON.length.should.be.above(0)
+            bodyJSON[0].should.have.property('cca2', 'DZ');
+        });
     });
 
     describe('#byTopLevelDomain(String)', () => {
@@ -1307,6 +1476,27 @@ describe('AfricanCountries', () => {
             should.exist(bodyJSON);
             bodyJSON.should.be.Array
             bodyJSON.length.should.be.above(0)
+        });
+
+        it('should be case-sensitive for top level domain', () => {
+            const result = AfricanCountries.byTopLevelDomain('DZ');
+
+            result.should.have.property('statusCode', 404).and.be.a.Number();
+            result.should.have.property('headers', {});
+            result.should.have.property('url', undefined);
+
+            let body = result.body
+            should.exist(body);
+            result.should.be.a.Object();
+            result.should.be.Buffer
+
+            body = body.toString();
+            body.should.be.String
+
+            const bodyJSON = JSON.parse(body);
+            should.exist(bodyJSON);
+            bodyJSON.should.be.Array
+            bodyJSON.should.have.lengthOf(0)
         });
     });
 });
