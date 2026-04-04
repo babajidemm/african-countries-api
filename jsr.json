@@ -1,0 +1,7 @@
+{
+    "name": "@babajidemm/african-countries-api",
+    "version": "2.0.2",
+    "exports": {
+        ".": "./index.js"
+    }
+}
