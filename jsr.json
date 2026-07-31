@@ -1,6 +1,6 @@
 {
     "name": "@babajidemm/african-countries-api",
-    "version": "2.0.2",
+    "version": "2.1.0",
     "exports": {
         ".": "./index.js"
     }

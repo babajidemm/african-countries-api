@@ -106,10 +106,23 @@ npm run coverage
 
 Dataset note: the bundled data snapshot was last updated in **July 2020**.
 
-## Deno
+## Deno / JSR
 
-Also available on Deno:
-https://deno.land/x/africancountriesapi@1.1.4
+Published on [JSR](https://jsr.io/@babajidemm/african-countries-api):
+
+```sh
+npx jsr add @babajidemm/african-countries-api
+```
+
+```ts
+import api from "jsr:@babajidemm/african-countries-api";
+```
+
+To publish a new JSR version locally after bumping `jsr.json`:
+
+```sh
+npm run publish:jsr
+```
 
 ## Contributing
 
