@@ -40,6 +40,9 @@ jobs:
   publish-github-packages:
     needs: test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -49,7 +52,13 @@ jobs:
           scope: "@babajidemm"
           cache: npm
       - run: npm ci
-      - run: npm publish
+      - run: |
+          cat > .npmrc <<EOF
+          @babajidemm:registry=https://npm.pkg.github.com
+          //npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
+          always-auth=true
+          EOF
+          npm publish --registry=https://npm.pkg.github.com
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
